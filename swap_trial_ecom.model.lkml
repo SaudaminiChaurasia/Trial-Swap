@@ -19,6 +19,7 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 #   }
 # }
 explore: order_items {
+  sql_always_where: ${created_date} >= '2023-08-01' ;;
   join: inventory_items {
     type:  full_outer
     relationship: one_to_one
@@ -28,6 +29,11 @@ explore: order_items {
     type: left_outer
     relationship: many_to_one
     sql_on: ${users.id} = ${order_items.user_id} ;;
+  }
+  join: customer_metrics { #joining customer metrics with users
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${customer_metrics.user_id} ;;
   }
   join: products {
     type: left_outer

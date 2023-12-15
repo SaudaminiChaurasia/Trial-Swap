@@ -41,6 +41,10 @@ view: users {
     type: string
     sql: ${TABLE}.last_name ;;
   }
+  dimension: user_name {
+    type:  string
+    sql: concat(${first_name},' ',${last_name}) ;;
+  }
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -60,6 +64,22 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+  dimension: user_location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
+  }
+  dimension: distance_users_centers {
+    label: "Distance between users and distribution centers"
+    type: distance
+    start_location_field: user_location
+    end_location_field: distribution_centers.distribution_center_location
+    units: miles
+  }
+  dimension: days_since_signup {
+    type: number
+    sql: DATE_DIFF(CURRENT_DATE(),${created_date}, DAY) ;;
   }
   measure: count {
     type: count
