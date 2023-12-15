@@ -36,10 +36,12 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+    value_format_name: usd
   }
   dimension: profit {
     type: number
     sql: ${sale_price} -  ${inventory_items.cost}  ;;
+    value_format_name: usd
   }
   dimension_group: shipped {
     type: time
@@ -69,6 +71,7 @@ view: order_items {
   measure: total_profit {
     type: sum
     sql: ${profit} ;;
+    value_format_name: usd
   }
 
 
