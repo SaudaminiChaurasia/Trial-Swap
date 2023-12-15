@@ -3,6 +3,7 @@ connection: "looker-private-demo"
 include: "/views/*.view.lkml"                # include all views in the views/ folder in this project
 # include: "/**/*.view.lkml"                 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
+# include: "/views/order_items.view"
 
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.
@@ -19,7 +20,10 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 #   }
 # }
 explore: order_items {
-  sql_always_where: ${created_date} >= '2023-08-01' ;;
+  #sql_always_where: ${created_date} >= '2023-08-01' ;;
+  always_filter: {
+    filters: [order_items.created_date: "90 days"]
+  }
   join: inventory_items {
     type:  full_outer
     relationship: one_to_one

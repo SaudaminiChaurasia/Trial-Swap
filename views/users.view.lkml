@@ -81,6 +81,10 @@ view: users {
     type: number
     sql: DATE_DIFF(CURRENT_DATE(),${created_date}, DAY) ;;
   }
+  dimension: months_since_signup {
+    type: number
+    sql: DATE_DIFF(CURRENT_DATE(),${created_date}, MONTH) ;;
+  }
   measure: count {
     type: count
     drill_fields: [id, last_name, first_name, order_items.count]
