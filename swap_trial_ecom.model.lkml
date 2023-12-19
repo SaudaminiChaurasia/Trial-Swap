@@ -7,8 +7,16 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.
-#
+#access grant
+#access_grant: can_view_state_data {
+#  user_attribute: can_see_pii
+#  allowed_values: [ "Arizona","Bristol","California" ]
+#}
 # explore: order_items {
+#   access_filter: {
+#    field: products.brand
+#    user_attribute: brand_test
+#   }
 #   join: orders {
 #     relationship: many_to_one
 #     sql_on: ${orders.id} = ${order_items.order_id} ;;
@@ -19,7 +27,16 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
+access_grant: view_personal_information {
+  user_attribute: can_see_pii_data_swap
+}
+
+
 explore: order_items {
+  access_filter: {
+    field: products.brand
+    user_attribute: brand_id
+  }
   #sql_always_where: ${created_date} >= '2023-08-01' ;;
   always_filter: {
     filters: [order_items.created_date: "90 days"]
