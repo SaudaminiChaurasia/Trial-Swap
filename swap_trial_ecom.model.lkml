@@ -42,9 +42,9 @@ explore: order_items {
     filters: [order_items.created_date: "90 days"]
   }
   join: inventory_items {
-    type:  full_outer
-    relationship: one_to_one
-    sql_on: ${inventory_items.id} = ${order_items.inventory_item_id} ;;
+    type:  left_outer
+    relationship: many_to_one
+    sql_on:  ${order_items.inventory_item_id} = ${inventory_items.id} ;;
   }
   join: users {
     type: left_outer
