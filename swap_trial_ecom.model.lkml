@@ -27,16 +27,16 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
-access_grant: view_personal_information {
-  user_attribute: can_see_pii_data_swap
-}
+#access_grant: view_personal_information {
+#  user_attribute: can_see_pii_data_swap
+#}
 
 
 explore: order_items {
-  access_filter: {
-    field: products.brand
-    user_attribute: brand_id
-  }
+#  access_filter: {
+#    field: products.brand
+#    user_attribute: brand_id
+#  }
   #sql_always_where: ${created_date} >= '2023-08-01' ;;
   always_filter: {
     filters: [order_items.created_date: "90 days"]

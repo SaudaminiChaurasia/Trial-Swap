@@ -28,7 +28,7 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
-    required_access_grants: [view_personal_information]
+    #required_access_grants: [view_personal_information]
   }
   dimension: first_name {
     type: string
